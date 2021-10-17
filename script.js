@@ -1,5 +1,7 @@
+(this.cost + 2) * 1.2
+
 let tickNum = 0;
-let messages = ['Message1', 'Message2', 'Message3', 'Message4'];
+let messages = ['', '', '', ''];
 
 const buttons = {
     killOrc: document.getElementById('orcKill'),
@@ -11,8 +13,9 @@ const gold = {
     total: 0,
     daily: 0,
     update: function(){
+        this.total = Math.round(this.total * 10) / 10;
         document.getElementById('gold').innerHTML = `Gold: ${this.total}`;
-        document.getElementById('goldDaily').innerHTML = `Daily Gold: ${this.daily}`;
+        document.getElementById('goldDaily').innerHTML = `Daily Gold: ${getGPD()}`;
     }
 
 }
@@ -45,11 +48,20 @@ const heroes = {
 }
 
 const soldiers = {
-    strength: 1,
+    strength: 0.2,
     cost: 10,
     total: 0,
 
     buy: function(){
+        if (gold.total >= this.cost){
+            gold.total -= this.cost;
+            this.total += 1;
+            this.cost = Math.floor((this.cost + 2) * 1.2);
+            gold.update();
+            messageBoard.log('Soldier Bought.');
+        }else{
+            messageBoard.log('You can\'t afford that.');
+        }
         this.update();
     },
 
@@ -58,9 +70,15 @@ const soldiers = {
     },
 
     update: function(){
-
+        document.getElementById('soldierTotal').innerHTML = `Total Soldiers: ${this.total}`;
+        document.getElementById('soldierStrength').innerHTML = `Soldier Strength: ${this.strength}`;
+        document.getElementById('soldierCost').innerHTML = `Soldier Cost: ${this.cost}`;
     }
 
+}
+
+buttons.buySoldier.onclick = function(){
+    soldiers.buy();
 }
 
 const orcs = {
@@ -70,7 +88,7 @@ const orcs = {
     kill: function(numKilled){
         this.total+=numKilled;
         gold.total+=(numKilled * this.value);
-        if (this.total%100 == 0){
+        if (this.total%100 == 0){               //Updates the orcs value, temp
             this.value*=2;
         }
         gold.update();
@@ -101,13 +119,18 @@ const messageBoard = {  //Scrolling Message Board
     }
 }
 
-
+function getGPD (){
+    let GPD = 0;
+    GPD += soldiers.total * soldiers.strength;
+    GPD = Math.round(GPD * 10) / 10;
+    return GPD;
+}
 
 const gameTick = function(){
+    gold.total += getGPD();
     gold.update();
     orcs.update();
     soldiers.update();
-    messageBoard.log(tickNum);
     messageBoard.update();
     tickNum++;
     console.log(tickNum);
