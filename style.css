@@ -1,5 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+#title{
+    text-align: center;
+    font-family: 'Press Start 2P';
+    color: rgb(3, 160, 98);
+}
+
+#statContainer{
+    display: inline-flex;
+}
+
 #goldContainer{
     color: gold;
+    width: 7rem;
 }
 
 #incomeContainer *{
@@ -10,6 +23,13 @@
     color: blue;
 }
 
-div{
+/*div{
     border: 1px solid black;
+}*/
+
+#messageBoard{
+    background-color: black;
+    color: white;
 }
+
+

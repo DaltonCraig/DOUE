@@ -11,13 +11,15 @@
 <body>
     <div id='messageBoard'>
         <ul id='messageList'>
-            <li id='message1'>Message1</li>
-            <li id='message2'>Message2</li>
-            <li id='message3'>Message3</li>
-            <li id='message4'>Message4</li>
+            <li id='message1'></li>
+            <li id='message2'></li>
+            <li id='message3'></li>
+            <li id='message4'></li>
         </ul>
     </div>
-    <h1 id='title'>Defenders of Upper Earth</h1>
+    <div id='titleContainer'>
+        <h1 id='title'>Defenders of Upper Earth</h1>
+    </div>
     <div id='gui'>
 
         <div id='statContainer'>
@@ -27,11 +29,10 @@
                 <p id='goldDaily'>Daily Gold: 0</p>
             </div>
 
-            <div id='incomeContainer'>
-                <p id='orcTotal'>Total Orcs Killed: 0</p>
-                <p id='orcDaily'>Orcs Killed Per Day: 0</p>
+            <div id='incomeContainer'>  
                 <p id='orcValue'>Orc Value: 1</p>
                 <button id='orcKill'>Kill Orc</button>
+                <button id='clickUpgrade'>Upgrade sword</button>
             </div>
 
         </div>
@@ -40,7 +41,7 @@
 
             <div id='soldierDisplay'>
                 <p id='soldierTotal'>Total Soldiers: 0</p>
-                <p id='soldierStrength'>Soldier Strength: 1</p>
+                <p id='soldierStrength'>Soldier Strength: 0.2</p>
                 <p id='soldierCost'>Soldier Cost: 10</p>
                 <button id='soldierBuy'>Buy Soldier</button>
             </div>
