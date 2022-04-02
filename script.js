@@ -3,104 +3,60 @@ let tickNum = 0;
 let messages = ['', '', '', ''];
 
 const buttons = {
-    killOrc: document.getElementById('orcKill'),
-    buySoldier: document.getElementById('soldierBuy'),
-    upgradeSoldier: document.getElementById('soldierUpgrade'),
-    upgradeClicks: document.getElementById('clickUpgrade')
+    killPlayerOrc: document.getElementById('killPlayerOrc')
 }
 
-const gold = {
-    total: 0,
-    daily: 0,
-    update: function(){
-        this.total = Math.round(this.total * 10) / 10;
-        document.getElementById('gold').innerHTML = `Gold: ${this.total}`;
-        document.getElementById('goldDaily').innerHTML = `Daily Gold: ${getGPD()}`;
-        document.getElementById('orcValue').innerHTML = `Orc Value: ${clicks.strength}`;
-    }
-
+buttons.killPlayerOrc.onclick = function(){
+    orcs.playerOrc.kill();
 }
 
-const clicks = {
-    allowed: true,
-    strength: 1,
-    upgrade: function(){
 
-    }
+
+
+
+const economy = {
+    gold: 0,
+    gpd: 0
 }
 
-buttons.upgradeClicks.onclick = function(){
-    clicks.upgrade();
-}
 
-const heroes = {
-    gimlet: {
 
-    },
 
-    kreolas: {
 
-    },
 
-    goodgulf: {
-
-    },
-
-    viggorn: {
-
-    },
-
-    beanomir: {
-
-    }
-}
-
-const soldiers = {
-    strength: 0.2,
-    cost: 10,
-    total: 0,
-    upgradeCost: 25,
-
-    buy: function(){
-        if (gold.total >= this.cost){
-            gold.total -= this.cost;
-            this.total += 1;
-            this.cost = Math.floor((this.cost + 2) * 1.2);
-            gold.update();
-            messageBoard.log('Soldier Bought.');
-        }else{
-            messageBoard.log('You can\'t afford that.');
+const orcs = {
+    playerOrc: {
+        value: 1,
+        numKilled: 0,
+        kill: function(){
+            economy.gold += this.value;
+            this.numKilled += 1;
+            gui.update();
         }
-        this.update();
-    },
-
-    upgrade: function(){
-        if (gold.total >= this.upgradeCost){
-            
-        }else{
-            messageBoard.log('You can\'t afford that.');
-        }
-        this.update();
-    },
-
-    update: function(){
-        document.getElementById('soldierTotal').innerHTML = `Total Soldiers: ${this.total}`;
-        document.getElementById('soldierStrength').innerHTML = `Soldier Strength: ${this.strength}`;
-        document.getElementById('soldierCost').innerHTML = `Soldier Cost: ${this.cost}`;
     }
-
 }
 
-buttons.buySoldier.onclick = function(){
-    soldiers.buy();
-}
-buttons.upgradeSoldier.onclick = function(){
-    soldiers.upgrade();
-}
 
-buttons.killOrc.onclick = function(){
-    gold.total += clicks.strength;
-    gold.update();
+
+
+
+
+
+
+
+
+
+
+
+
+const gui = {
+    update: function(){
+        document.getElementById('gold').innerHTML = `Gold: ${economy.gold}`;
+        document.getElementById('gpd').innerHTML = `Gold Per Day: ${economy.gpd}`;
+        document.getElementById('playerOrcKilled').innerHTML = `Orcs Killed: ${orcs.playerOrc.numKilled}`;
+        document.getElementById().innerHTML = `Orc Value: ${orcs.playerOrc.value}`
+        messageBoard.update();
+    }
 }
 
 const messageBoard = {  //Scrolling Message Board
@@ -117,19 +73,13 @@ const messageBoard = {  //Scrolling Message Board
     }
 }
 
-function getGPD (){
-    let GPD = 0;
-    GPD += soldiers.total * soldiers.strength;
-    GPD = Math.round(GPD * 10) / 10;
-    return GPD;
-}
+
+
+
+
 
 const gameTick = function(){
-    gold.total += getGPD();
-    gold.update();
-    soldiers.update();
-    messageBoard.update();
     tickNum++;
     console.log(tickNum);
 }
-setInterval(gameTick, 1000);
+setInterval(gameTick, 1000)
