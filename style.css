@@ -6,30 +6,68 @@
     color: rgb(3, 160, 98);
 }
 
-#statContainer{
-    display: inline-flex;
+
+#gui{
+    display: flex;
+    height: 20em;
 }
+
 
 #goldContainer{
-    color: gold;
-    width: 7rem;
+    display: flex;
+    height: 6em;
+    width: 8em;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: gold;
 }
 
-#incomeContainer *{
-    color: green;
+#orcContainer{
+    display: flex;
+}
+#playerOrcContainer{
+    display: flex;
+    justify-content: center;
+    height: 8em;
+    width: 9em;
+    flex-wrap: wrap;
 }
 
-#soldierDisplay *{
-    color: blue;
+#killPlayerOrc{
+    display: flex;
+    background-color: green;
+    justify-content: center;
+    width: 100%
+}
+#killPlayerOrc:hover{
+    background-color: red;
+}
+#killPlayerOrc:active{
+    background-color: darkred;
 }
 
-/*div{
+
+
+
+
+div{
     border: 1px solid black;
-}*/
+}
+
 
 #messageBoard{
     background-color: black;
-    color: white;
+    color: lime;
+}
+
+#messageBoard ul{
+    list-style-type: none;
+}
+
+#messageBoard li::before{
+    content: "> ";
+    font-weight: 900;
+    text-shadow: 2.2px 0px lime;
 }
 
 
