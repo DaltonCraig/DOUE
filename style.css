@@ -1,29 +1,108 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+/*
+
+    TABLE OF CONTENTS:
+
+
+1. GUI
+2. ECONOMY
+3. FOOD
+4. ORCS
+5. BASE
+6. MERCENARIES
+
+
+
+
+999. MESSAGE BOARD
+
+*/
+
+div{border: 1px solid black;}
+
+
+
+
 #title{
     text-align: center;
     font-family: 'Press Start 2P';
     color: rgb(3, 160, 98);
 }
-
-
-#gui{
-    display: flex;
-    height: 20em;
+#date{
+    text-align: center;
 }
 
 
-#goldContainer{
+
+
+/* 1. GUI */
+#gui{
     display: flex;
-    height: 6em;
-    width: 8em;
+    height: 30em;
+    flex-wrap: wrap;
+}
+
+
+
+
+/* 2. ECONOMY */
+#economyContainer{
+    display: flex;
+    height: 10em;
+    width: 12em;
     justify-content: center;
     flex-wrap: wrap;
     background-color: gold;
+    border: 1px solid black;
+}
+#food{
+    display: inline-flex;
+    margin-right: 1em;
+}
+#gold{
+    display: inline-flex;
 }
 
-#orcContainer{
+
+
+
+/* 3. FOOD */
+#foodContainer{
     display: flex;
+    height: 10em;
+    width: 8em;
+    border: 1px solid black;
+}
+#foodGather{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(5, 205, 5);
+}
+#foodGather:hover{
+    background-color: rgb(4, 185, 4);
+}
+#foodGather:active{
+    background-color: rgb(3, 147, 3);
+}
+#gatherLabel{
+    font-size: 2em;
+}
+#gatherValue{
+    font-size: 1.15em;
+}
+
+
+/* 4. ORCS */
+#orcContainer{
+    visibility: visible;
+    display: flex;
+    height: 8em;
+    width: 70%;
 }
 #playerOrcContainer{
     display: flex;
@@ -49,12 +128,64 @@
 
 
 
-
-div{
-    border: 1px solid black;
+/* 5. BASE */
+#baseContainer{
+    visibility: hidden;
+    width: 20em;
+    height: 20em;
+    display: flex;
+    flex-wrap: wrap;
+}
+#baseContainer h2{
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 
+
+
+/* 6. MERCENARIES */
+#mercs{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 60%;
+    height: 70%;
+}
+#mercInfoContainer{
+    height: 75%;
+    width: 100%;
+}
+#mercs p{
+    font-size: small;
+    justify-content: left;
+}
+
+#mercBuy{
+    display: flex;
+    width: 100%;
+    background-color: #add8e6;
+}
+#mercBuy:hover{
+    background-color: #51a1bc;
+}
+#mercBuy:active{
+    background-color: #218db0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 999. MESSAGE BOARD */
 #messageBoard{
     background-color: black;
     color: lime;

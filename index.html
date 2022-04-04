@@ -19,19 +19,41 @@
     </div>
     <div id='titleContainer'>
         <h1 id='title'>Defenders of Upper Earth</h1>
+        <h3 id="date">1 January 492</h3>
     </div>
     <div id='gui'>
 
-        <div id="goldContainer">
+        <div id="economyContainer">
+            <p id="food">Food: 0</p>
             <p id="gold">Gold: 0</p>
-            <p id="gpd">Gold Per Day: 0</p>
+            <p id="fpw">Food Per Week: 0</p>
+            <p id="gpw">Gold Per Week: 0</p>
+        </div>
+        <div id="foodContainer">
+            <button id="foodGather">
+                <p id="gatherLabel">Gather Food</p>
+                <p id="gatherValue">Value: 1</p>
+            </button>
         </div>
 
         <div id="orcContainer">
             <div id="playerOrcContainer">
-                <p id="playerOrcKilled">Orcs Killed: 0</p>
                 <p id="playerOrcValue">Orc Value: 1</p>
                 <button id="killPlayerOrc">Kill Orc</button>
+            </div>
+        </div>
+
+        <div id="baseContainer">
+            <h2 id="baseType">Camp</h2>
+            <div id="mercs">
+                <h3>Mercenaries</h3>
+                <div id="mercInfoContainer">
+                    <p id="mercIncome">Income: 0</p>
+                    <p id="mercNum">Total Employed: 0</p>
+                    <p id="mercStrength">Strength: 1</p>
+                    <p id="mercUpkeep">Upkeep: 0 Food Per Week</p>
+                    <button id="mercBuy">Mercenary Cost: 15 Gold</button>
+                </div>
             </div>
         </div>
     </div>
