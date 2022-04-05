@@ -69,15 +69,16 @@ div{border: 1px solid black;}
 
 /* 3. FOOD */
 #foodContainer{
+    visibility: hidden;
     display: flex;
     height: 10em;
-    width: 8em;
+    width: 70%;
     border: 1px solid black;
 }
 #foodGather{
     display: flex;
     height: 100%;
-    width: 100%;
+    width: 7rem;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -90,7 +91,7 @@ div{border: 1px solid black;}
     background-color: rgb(3, 147, 3);
 }
 #gatherLabel{
-    font-size: 2em;
+    font-size: 2.3em;
 }
 #gatherValue{
     font-size: 1.15em;
@@ -99,30 +100,31 @@ div{border: 1px solid black;}
 
 /* 4. ORCS */
 #orcContainer{
-    visibility: visible;
     display: flex;
-    height: 8em;
-    width: 70%;
+    width: 7rem;
+    height: 10em;
+    border: 1px solid black;
 }
-#playerOrcContainer{
+#killOrc{
     display: flex;
+    height: 100%;
+    width: 7rem;
     justify-content: center;
-    height: 8em;
-    width: 9em;
-    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(250, 4, 0);
 }
-
-#killPlayerOrc{
-    display: flex;
-    background-color: green;
-    justify-content: center;
-    width: 100%
+#killOrc:hover{
+    background-color: rgb(222, 4, 1);
 }
-#killPlayerOrc:hover{
-    background-color: red;
+#killOrc:active{
+    background-color: rgb(202, 3, 0);
 }
-#killPlayerOrc:active{
-    background-color: darkred;
+#orcLabel{
+    font-size: 2.3em;
+}
+#orcValue{
+    font-size: 1.15em;
 }
 
 

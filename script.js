@@ -1,16 +1,16 @@
 
-let tickNum = 0;
+let tickNum = 1;
 let messages = ['', '', '', ''];
 let unlockedMerc = false;
 
 const buttons = {
-    killPlayerOrc: document.getElementById('killPlayerOrc'),
+    killorc: document.getElementById('killOrc'),
     mercBuy: document.getElementById('mercBuy'),
     gatherFood: document.getElementById('foodGather')
 }
 
-buttons.killPlayerOrc.onclick = function(){
-    orcs.playerOrc.kill();
+buttons.killorc.onclick = function(){
+    orcs.orc.kill();
 }
 buttons.mercBuy.onclick = function(){
     mercs.purchase();
@@ -54,7 +54,7 @@ const food = {
 
 
 const orcs = {
-    playerOrc: {
+    orc: {
         value: 1,
         numKilled: 0,
         kill: function(){
@@ -65,7 +65,7 @@ const orcs = {
     },
 
     update: function(){
-        document.getElementById('playerOrcValue').innerHTML = `Orc Value: ${this.playerOrc.value}`
+        document.getElementById('orcValue').innerHTML = `Value: ${this.orc.value}`;
     }
 }
 
@@ -94,11 +94,11 @@ const mercs = {
     },
 
     update: function(){
-        this.income = this.employed * this.strength * orcs.playerOrc.value;
-        document.getElementById('mercIncome').innerHTML = `Income: ${mercs.income}`;
+        this.income = this.employed * this.strength * orcs.orc.value;
+        document.getElementById('mercIncome').innerHTML = `Income: ${mercs.income} Gold Per Week`;
         document.getElementById('mercNum').innerHTML = `Total Employed: ${mercs.employed}`;
         document.getElementById('mercStrength').innerHTML = `Strength: ${mercs.strength}`;
-        document.getElementById('mercUpkeep').innerHTML = `Upkeep: ${mercs.upkeepTotal} Food`;
+        document.getElementById('mercUpkeep').innerHTML = `Upkeep: ${mercs.upkeepTotal} Food Per Week`;
         document.getElementById('mercBuy').innerHTML = `Mercenary Cost: ${mercs.cost} Gold`;
     }
 }
@@ -108,11 +108,12 @@ const mercs = {
 const progress = {
     check: function (){
         if (!unlockedMerc){
-            if (economy.food >= 15){
+            if (economy.gold >= 15){
                 document.getElementById("baseContainer").style.visibility = "visible";
-                messageBoard.log("You now have enough food to start a camp. You should hire a mercenary to protect it");
-                messageBoard.log("Mercenaries will consume food in exchange for their protection");
-                messageBoard.log("They will also kill nearby Orcs and give you a cut of the weekly loot");
+                document.getElementById("foodContainer").style.visibility = "visible";
+                messageBoard.log("You now have enough gold to start a camp. You should hire a mercenary to protect it");
+                messageBoard.log("Mercenaries will kill nearby orcs and give you a cut of the loot each week");
+                messageBoard.log("They will also consume food in exchange for their services");
                 messageBoard.log("If you run out of food, you will lose 1/4 of your force per week")
                 unlockedMerc = true;
             }
@@ -130,7 +131,7 @@ const gui = {
         economy.update();
         orcs.update();
         mercs.update();
-
+        calendar.update();
         messageBoard.update();
     }
 }
@@ -150,7 +151,41 @@ const messageBoard = {  //Scrolling Message Board
 }
 
 
+const calendar = {
+    day: 1,
+    month: 1,
+    year: 492,
+    calendar: [["January", 31],["February", 28],["March", 31],["April", 30],["May", 31],["June", 30],["July", 31],["August", 31],
+    ["September", 30],["October", 31],["November", 30],["December", 31]],
 
+    nextDay: function(){
+        numDays = this.calendar[this.month-1][1];
+        if (this.day == numDays) {
+            if (this.month == 12){ //Advances a year
+                this.year++;
+                this.month = 1;
+                this.day = 1;
+                this.update();
+            }
+            else{ //Adances a month
+                this.month++;
+                this.day = 1;
+                this.update();
+            }
+        }
+        else{ //Advances a day
+            this.day++;
+            this.update();
+        }
+    },
+
+    update: function(){
+        displayDay = this.day;
+        displayMonth = this.calendar[this.month-1][0];
+
+        document.getElementById("date").innerHTML = `${displayDay} ${displayMonth} ${this.year}`;
+    }
+}
 
 
 
@@ -160,6 +195,7 @@ const gameTick = function(){
     if (tickNum%7==0){
         economy.tick();
     }
+    calendar.nextDay();
     progress.check();
     gui.update();
 }
