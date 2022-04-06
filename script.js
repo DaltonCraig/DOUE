@@ -26,6 +26,7 @@ const economy = {
     gpw: 0,
     food: 0,
     fpw: 0,
+    starving: false,
     update: function(){
         this.gpw = mercs.income;
         this.fpw = 0 - mercs.upkeepTotal;
@@ -35,9 +36,27 @@ const economy = {
         document.getElementById('fpw').innerHTML = `Food Per Week: ${this.fpw}`;
     },
     tick: function() {
-        this.update();
         this.gold += this.gpw;
-        this.food += this.fpw;
+        if(this.starving){
+            this.starve();
+        }
+        if (this.food + this.fpw <= 0 ){
+            this.food = 0;
+            this.starving = true;
+        }else{
+            this.food += this.fpw;
+            this.starving = false;
+        }
+        mercs.update();
+        economy.update();
+    },
+    starve: function(){
+        if (mercs.employed > 3){
+            mercs.employed = Math.ceil(mercs.employed * .75);
+        }else if (mercs.employed > 0){
+            mercs.employed -= 1;
+        }
+        
     }
 }
 
@@ -75,6 +94,7 @@ const mercs = {
     income: 0,
     employed: 0,
     strength: 1,
+    baseCost: 15,
     cost: 15,
     upkeepPer: 1,
     upkeepTotal: 0,
@@ -82,7 +102,7 @@ const mercs = {
     purchase: function(){
         if (economy.gold >= this.cost) {
             economy.gold -= this.cost;
-            this.cost = Math.ceil(this.cost *= 1.15);
+            this.cost = Math.floor(this.baseCost * (1.15 ** this.employed));
             this.employed += 1;
             this.upkeepTotal = this.upkeepPer * this.employed;
             this.income = this.strength * this.employed;
@@ -95,6 +115,8 @@ const mercs = {
 
     update: function(){
         this.income = this.employed * this.strength * orcs.orc.value;
+        this.upkeepTotal = this.employed * this.upkeepPer;
+        this.cost = Math.floor(this.baseCost * (1.15 ** this.employed));
         document.getElementById('mercIncome').innerHTML = `Income: ${mercs.income} Gold Per Week`;
         document.getElementById('mercNum').innerHTML = `Total Employed: ${mercs.employed}`;
         document.getElementById('mercStrength').innerHTML = `Strength: ${mercs.strength}`;
